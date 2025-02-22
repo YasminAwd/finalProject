@@ -8,7 +8,7 @@ export default function Categories() {
   const[categories,setCategories]=useState(null)
 
   async function getCategories(){
-    let response=await axios.get(`https://route-ecommerce.onrender.com//api/v1/subcategories`)
+    let response=await axios.get(`https://ecommerce.routemisr.com/api/v1/categories`)
     console.log(response);
     
     setCategories(response.data)

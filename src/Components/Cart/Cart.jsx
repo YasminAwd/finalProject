@@ -2,36 +2,31 @@ import React, { useContext, useEffect, useState } from 'react'
 import style from './Cart.module.css'
 import { CartContext } from '../../Context/CartContext'
 import { Link } from 'react-router-dom'
+import Loading from '../Loading/Loading'
 
 
 export default function Cart() {
 
- const[cartDetails,setcartDetails]= useState(null)
 
-  let {getCartItems,removeCartItem,updateCartItem,setCart,cart} =useContext(CartContext)
+  let {getCart,removeCartItem,updateCartItem,setCart,cart} =useContext(CartContext)
 
-  async function getCart() {
-    let response =await getCartItems()
-    setcartDetails(response.data)
-  }
-
+ 
   async function removeItem(productId) {
     let response =await removeCartItem(productId)
-    setcartDetails(response.data)
-    setCart(response.data)
+    console.log(response);
+    
+    getCart()
   }
   async function updateQuantity(productId,count) {
     if(count<1)
       return;
     let response =await updateCartItem(productId,count)
-    setcartDetails(response.data)
+    
     setCart(response.data)
   }
-
-  useEffect(()=>{
-    getCart()
-  },[])
-
+     if (!cart){
+      return <Loading/>
+     }
   return <>
     
 
@@ -57,7 +52,7 @@ export default function Cart() {
       </tr>
     </thead>
     <tbody>
-      {cartDetails?.data.products.map((product)=> 
+      {cart&&cart?.data?.products.map((product)=> 
       <tr key={product.product._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
         <td className="p-4">
           <img src={product.product.imageCover} className="w-16 md:w-32 max-w-full max-h-full" alt="Apple Watch" />
@@ -88,7 +83,7 @@ export default function Cart() {
           {product.price}
         </td>
         <td className="px-6 py-4">
-          <span onClick={()=>removeItem(product.product.id )} className="font-medium text-red-600 dark:text-red-500 hover:text-black"><i class="fa-solid fa-trash-can fa-xl"></i></span>
+          <span onClick={()=>removeItem(product.product.id)} className="font-medium text-red-600 dark:text-red-500 hover:text-black"><i class="fa-solid fa-trash-can fa-xl"></i></span>
         </td>
       </tr> )}
     </tbody>

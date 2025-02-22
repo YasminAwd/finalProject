@@ -13,12 +13,12 @@ export default function CartContextProvider(props){
     let[wishlist,setWishlist]=useState(null)
 
     function removeCartItem(productId){
-        return axios.delete(`https://ecommerce.routemisr.com/api/v1/wishlist/61e81f641904360ec15c6db1/${productId}`,{headers})
+        return axios.delete(`https://ecommerce.routemisr.com/api/v1/cart/${productId}`,{headers})
         .then((response)=> response)
         .catch((x)=>x)
     }
     function removeWishlistItem(productId){
-        return axios.delete(`https://ecommerce.routemisr.com/api/v1/cart/${productId}`,{headers})
+        return axios.delete(`https://ecommerce.routemisr.com/api/v1/wishlist/${productId}`,{headers})
         .then((response)=> response)
         .catch((x)=>x)
     }
@@ -82,7 +82,7 @@ export default function CartContextProvider(props){
       getWishlist()
     }, [])
     
-    return <CartContext.Provider value={{cart , setCart , addToCart  , getCartItems , removeCartItem , updateCartItem , wishlist , removeWishlistItem ,setWishlist , addToWishlist , getWishlistItems  , checkOut}}>
+    return <CartContext.Provider value={{cart , setCart , addToCart , getCart , getCartItems , removeCartItem , updateCartItem , wishlist , removeWishlistItem ,setWishlist , addToWishlist , getWishlistItems  , checkOut}}>
         {props.children}
     </CartContext.Provider>
 }

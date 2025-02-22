@@ -16,8 +16,7 @@ export default function WishList() {
       }
       async function removeItem(productId) {
         let response =await removeWishlistItem(productId)
-        setWishlistDetails(response.data)
-        setWishlist(response.data)
+        getWishlist()
        
       }
     

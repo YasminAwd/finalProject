@@ -13,12 +13,11 @@ export default function Navbar() {
   let navigate =useNavigate()
   let{userLOgin, setUserLogin}=useContext(userContext);
   let{cart}=useContext(CartContext)
-  console.log(cart);
   
   function logOut()
   {
     navigate('/login')
-    localStorage.removeItem('userTaken')
+    localStorage.removeItem('userToken')
     setUserLogin(null)
    
   }
@@ -59,7 +58,7 @@ export default function Navbar() {
               <span className=" font-medium text-gray-900 cursor-pointor relative px-2">
                 <NavLink to={'/cart'} >
                   <i class="fa-solid fa-cart-shopping fa-2xl"></i>
-                  <span className='bg-green-600 text-white p-1 text-sm absolute bottom-2 right-[-3px] rounded-full'>{cart.numOfCartItems}</span>
+                  <span className='bg-green-600 text-white p-1 text-sm absolute bottom-2 right-[-3px] rounded-full'>{cart?.numOfCartItems}</span>
                 </NavLink>
               </span>
               <span onClick={logOut} className=" font-medium text-gray-900 cursor-pointor">Log Out</span>
