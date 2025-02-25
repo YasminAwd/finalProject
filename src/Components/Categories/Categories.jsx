@@ -24,7 +24,8 @@ export default function Categories() {
        <div className="m-4">
        <a href="#" className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800
            dark:border-gray-700 dark:hover:bg-gray-700">
-          
+          <img src={category.image} className='h-80 w-full py-3' alt="category" />
+          <span className='text-2xl text-green-600 font-bold'>{category.name}</span>
         </a>
        </div>
       </div>

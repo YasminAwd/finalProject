@@ -65,6 +65,8 @@ export default function CartContextProvider(props){
     }
     async function getWishlist(){
         let response=await getWishlistItems()
+        console.log(response);
+        
         setWishlist(response.data)
      }
      function checkOut(cartId,url,value){
@@ -82,7 +84,7 @@ export default function CartContextProvider(props){
       getWishlist()
     }, [])
     
-    return <CartContext.Provider value={{cart , setCart , addToCart , getCart , getCartItems , removeCartItem , updateCartItem , wishlist , removeWishlistItem ,setWishlist , addToWishlist , getWishlistItems  , checkOut}}>
+    return <CartContext.Provider value={{cart , setCart , addToCart , getCart , getCartItems , removeCartItem , updateCartItem , wishlist , removeWishlistItem ,setWishlist , addToWishlist , getWishlistItems , getWishlist  , checkOut}}>
         {props.children}
     </CartContext.Provider>
 }

@@ -10,11 +10,11 @@ import toast from 'react-hot-toast';
 
 export default function RecentProducts() {
 
-    let {addToCart , addToWishlist , setCart ,setWishlist} =useContext(CartContext)
+    let {addToCart , addToWishlist , setCart ,getWishlist , wishlist} =useContext(CartContext)
 
     async function addProduct(productId){
       let response=  await addToCart(productId)
-      console.log(response);
+
       
       if (response.data.status==='success'){
         setCart(response.data)
@@ -31,8 +31,8 @@ export default function RecentProducts() {
       let response=  await addToWishlist(productId)
       console.log(response);
       
-      if (response.data.statusMsg==='success'){
-        setWishlist(response.data)
+      if (response.data.status==='success'){
+        getWishlist(response.data)
         toast.success('product added successfully ',{
         })
       }
@@ -59,6 +59,7 @@ export default function RecentProducts() {
         </div>
     }
 
+    
   return (
    <>
    <div className="row text-center">
@@ -74,7 +75,13 @@ export default function RecentProducts() {
         </div>
      </Link>
      <div className="flex justify-between py-4 heart">
-     <button onClick={()=>addProductToWishlist(product.id)}  className=''> <i class="fa-solid fa-heart fa-xl "></i></button>
+     <button onClick={()=>addProductToWishlist(product.id)} > 
+      {
+        wishlist?.data.map((item)=>item.id).includes(product.id)
+        ?<i class="fa-solid fa-heart text-red-500 fa-xl "></i>
+        :<i class="fa-solid fa-heart fa-xl "></i>
+      }
+     </button>
      <button onClick={()=>addProduct(product.id)} className='btn'> add to cart <i class="fa-solid fa-cart-plus"></i></button>
      </div>
     </div>
