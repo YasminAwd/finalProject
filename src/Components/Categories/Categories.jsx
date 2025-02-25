@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import style from './categories.module.css'
 import axios from 'axios'
 import { data } from 'react-router-dom'
 
