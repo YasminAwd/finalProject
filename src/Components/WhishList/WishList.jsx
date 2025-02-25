@@ -1,13 +1,28 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CartContext } from '../../Context/CartContext'
+import toast from 'react-hot-toast'
 
 
 export default function WishList() {
     const[wishlistDetails,setWishlistDetails]= useState(null)
     
-    let {getWishlistItems,removeWishlistItem,setWishlist} =useContext(CartContext)
-    
+    let {getWishlistItems,removeWishlistItem,addToCart,setWishlist} =useContext(CartContext)
+
+    async function addProduct(productId){
+      let response=  await addToCart(productId)
+
+      
+      if (response.data.status==='success'){
+        setCart(response.data)
+        toast.success('product added successfully to your cart',{
+        })
+      }
+      else{
+        toast.error('error added to your cart',{
+        })
+      }
+    }
       async function getWishlist() {
         let response =await getWishlistItems()
         setWishlistDetails(response.data)
